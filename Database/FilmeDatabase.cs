@@ -42,5 +42,11 @@ namespace secondApi.Database
             ctx.SaveChanges();
             return antigo;
         }
+
+        public void DeletarFilme(Models.TbFilme filme)
+        {
+            ctx.Remove(filme);
+            ctx.SaveChanges();   
+        }
     }
 }

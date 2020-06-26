@@ -47,10 +47,10 @@ namespace secondApi.Controllers
 
                 return filmes2;
             }
-            catch (System.Exception e)
+            catch
             {
                 return NotFound(
-                    new Models.Response.ErrorResponse(404, e.Message)
+                    new List<Models.TbFilme>(){}
                 );
             }
         }
@@ -76,5 +76,44 @@ namespace secondApi.Controllers
                 );
             }
         }
+
+        // 4)
+        [HttpGet("{id}")]
+        public ActionResult<Models.Response.FilmeResponse> ConsultarFilme(int id)
+        {
+            try
+            {
+                Models.TbFilme filme = filmeBusiness.ConsultarFilme(id);
+
+                Models.Response.FilmeResponse filme1 = filmeConversor.ToResponseConversor(filme);
+                
+                return filme1;
+            }
+            catch
+            {
+                return NotFound(null);
+            }
+        }
+
+        // 5)
+        [HttpDelete("{id}")]
+        public ActionResult DeletarFilme(int id)
+        {
+            try
+            {
+                Models.TbFilme filme = filmeBusiness.ConsultarFilme(id);
+
+                filmeBusiness.DeletarFilme(filme);
+
+                return Ok(null);
+            }
+            catch
+            {
+                return NotFound(null);
+            }
+        }
+
+        // 6)
+        
     }
 }

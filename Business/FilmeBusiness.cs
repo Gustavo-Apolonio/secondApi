@@ -33,6 +33,10 @@ namespace secondApi.Business
                 throw new ArgumentException("O ID não pode ser menor ou igual a 0.");
 
             Models.TbFilme filme = dbFilme.ConsultarFilme(id);
+
+            if(filme == null)
+                throw new Exception("O filme não existe.");
+
             return filme;
         }
 
@@ -43,6 +47,14 @@ namespace secondApi.Business
 
             Models.TbFilme filme = dbFilme.AlterarFilme(antigo, novo);
             return filme;
+        }
+
+        public void DeletarFilme(Models.TbFilme filme)
+        {
+            if(filme.IdFilme == 0)
+                throw new ArgumentException("O filme não existe.");
+                
+            dbFilme.DeletarFilme(filme);
         }
     }
 }
