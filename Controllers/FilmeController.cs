@@ -50,7 +50,7 @@ namespace secondApi.Controllers
             catch
             {
                 return NotFound(
-                    new List<Models.TbFilme>(){}
+                    new List<Models.Response.FilmeResponse>(){}
                 );
             }
         }
@@ -114,6 +114,28 @@ namespace secondApi.Controllers
         }
 
         // 6)
-        
+        [HttpGet("filtrar")]
+        public ActionResult<List<Models.Response.FilmeResponse>> ConsultarFilmesFiltro(string nome,
+                                                                                       string genero)
+        {
+            try
+            {
+                List<Models.TbFilme> filmes = filmeBusiness.ConsultarFilmes().Where(
+                    x => x.NmFilme.Contains(nome) && x.DsGenero.Contains(genero)
+                    ).ToList();
+
+                List<Models.Response.FilmeResponse> filmeResponses = filmes.Select(
+                    x => filmeConversor.ToResponseConversor(x)
+                    ).ToList();
+
+                return filmeResponses;
+            }
+            catch
+            {
+                return NotFound(
+                    new List<Models.Response.FilmeResponse>(){}
+                );
+            }
+        }
     }
 }
