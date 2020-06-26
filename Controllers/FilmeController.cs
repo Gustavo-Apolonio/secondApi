@@ -54,5 +54,27 @@ namespace secondApi.Controllers
                 );
             }
         }
+
+        // 3)
+        [HttpPut("{id}")]
+        public ActionResult AlterarFilme(Models.Request.FilmeRequest novo, int id)
+        {
+            try
+            {
+                Models.TbFilme antigo = filmeBusiness.ConsultarFilme(id);
+
+                Models.TbFilme atual = filmeConversor.ToTableConversor(novo);
+
+                atual = filmeBusiness.AlterarFilme(antigo, atual);
+
+                return NoContent();
+            }
+            catch (System.Exception e)
+            {
+                return BadRequest(
+                    new Models.Response.ErrorResponse(400, e.Message)
+                );
+            }
+        }
     }
 }

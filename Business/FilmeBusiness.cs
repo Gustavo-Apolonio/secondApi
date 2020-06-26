@@ -26,5 +26,23 @@ namespace secondApi.Business
 
             return filmes;
         }
+
+        public Models.TbFilme ConsultarFilme(int id)
+        {
+            if(id <= 0)
+                throw new ArgumentException("O ID não pode ser menor ou igual a 0.");
+
+            Models.TbFilme filme = dbFilme.ConsultarFilme(id);
+            return filme;
+        }
+
+        public Models.TbFilme AlterarFilme(Models.TbFilme antigo, Models.TbFilme novo)
+        {
+            if(novo.NrDuracao <= 0)
+                throw new ArgumentException("Duração Inválida.");
+
+            Models.TbFilme filme = dbFilme.AlterarFilme(antigo, novo);
+            return filme;
+        }
     }
 }
