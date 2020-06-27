@@ -120,9 +120,7 @@ namespace secondApi.Controllers
         {
             try
             {
-                List<Models.TbFilme> filmes = filmeBusiness.ConsultarFilmes().Where(
-                    x => x.NmFilme.Contains(nome) && x.DsGenero.Contains(genero)
-                    ).ToList();
+                List<Models.TbFilme> filmes = filmeBusiness.ConsultarFilmesFiltro(nome, genero);
 
                 List<Models.Response.FilmeResponse> filmeResponses = filmes.Select(
                     x => filmeConversor.ToResponseConversor(x)

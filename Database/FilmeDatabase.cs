@@ -24,6 +24,15 @@ namespace secondApi.Database
             return filmes;
         }
 
+        public List<Models.TbFilme> ConsultarFilmesFiltro(string nome, string genero)
+        {
+            List<Models.TbFilme> filmes = ctx.TbFilme.Where(
+                    x => x.NmFilme.Contains(nome) && x.DsGenero.Contains(genero)
+            ).ToList();
+
+            return filmes;
+        }
+
         public Models.TbFilme ConsultarFilme(int id)
         {
             Models.TbFilme filme = ctx.TbFilme.First(x => x.IdFilme == id);

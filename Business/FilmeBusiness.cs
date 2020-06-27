@@ -27,6 +27,16 @@ namespace secondApi.Business
             return filmes;
         }
 
+        public List<Models.TbFilme> ConsultarFilmesFiltro(string nome, string genero)
+        {
+            List<Models.TbFilme> filmes = dbFilme.ConsultarFilmesFiltro(nome, genero);
+
+            if(filmes.Count == 0)
+                throw new ArgumentException("Não há filmes no Banco de Dados.");
+
+            return filmes;
+        }
+
         public Models.TbFilme ConsultarFilme(int id)
         {
             if(id <= 0)
